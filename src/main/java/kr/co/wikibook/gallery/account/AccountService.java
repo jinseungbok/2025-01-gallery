@@ -33,7 +33,7 @@ public class AccountService {
         AccountLoginRes res = accountMapper.findByLoginId(req);
 
         //아이디가 없거나 비밀번호가 다르다면
-        if(!BCrypt.checkpw(req.getLoginPw(), res.getLoginPw())) {
+        if(res == null || !BCrypt.checkpw(req.getLoginPw(), res.getLoginPw())) {
             return null; // return null; 처리
         }
         return res;
