@@ -36,16 +36,23 @@ public class CartController {
         return ResponseEntity.ok(result);
     }
 
+    @DeleteMapping("/{cartId}")
+    public ResponseEntity<?> deleteMemberItem(HttpServletRequest httpReq, @PathVariable int cartId) {
+        int logginedMemberId = (int)HttpUtils.getSessionValue(httpReq, AccountConstants.MEMBER_ID_NAME);
+        CartDeleteReq req = new CartDeleteReq(cartId, logginedMemberId);
+        int result = cartService.remove(req);
+        return ResponseEntity.ok(result);
+    }
+
     @DeleteMapping
     // RequestParam은 객체 못가져옴
-    public  ResponseEntity<?> delete(HttpServletRequest httpReq, @ModelAttribute CartDeleteReq req) {
-        int memberId = (int)HttpUtils.getSessionValue(httpReq, AccountConstants.MEMBER_ID_NAME);
-        req.setMemberId(memberId);
-//        CartDeleteReq data = new CartDeleteReq(memberId, req.getItemId() );
-        int result = cartService.remove(req);
+    public ResponseEntity<?> delete(HttpServletRequest httpReq) {
+        int logginedMemberId = (int)HttpUtils.getSessionValue(httpReq, AccountConstants.MEMBER_ID_NAME);
+        int result = cartService.removeAll(logginedMemberId);
         return  ResponseEntity.ok(result);
     }
 }
+
 /*
     @PutMapping
     public ResponseEntity<?> removeId(HttpServletRequest httpReq, @RequestParam int itemId) {

@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class AccountLoginRes {
+    private String name;
     private int id;
     @JsonIgnore
     private String loginPw;
