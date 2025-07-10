@@ -1,22 +1,52 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- namespace="xml파일과 세트인 mapper interface의 풀 네임이 들어가야 한다. -->
+<!--위 2중 아래 1줄은 필수 mapper는 .dtd 파일에서 지정되어있는거
+ 인터페이스 + xml >> 객체화-->
+<!--namespace는 인터페이스 파일의 풀 주소+파일이름 -->
+<!--#이면 자동으로 '' 으로 붙여준다 대신 $를쓰면 값 그대로 들어간다 그래서 '' 없기 떄문에 모든걸 다써야한다-->
 <mapper namespace="kr.co.wikibook.gallery.cart.CartMapper">
+
+    <!--    <bind name="pattern" value="'%' + _parameter.getTitle() + '%'" />-->
+
+
+    <!--        <if test="searchText != null and searchText !='' ">-->
+    <!--            <bind name="pattern" value="'%' + _parameter.getSearchText + '%'" />-->
+    <!--            WHERE title LIKE #{pattern}-->
+    <!--            OR content LIKE '%${pattern}%'-->
+    <!--            WHERE title LIKE '%${searchText}%'-->
+    <!--                OR content LIKE '%${searchText}%'-->
+    <!--</if>-->
+
+    <!--        ORDER BY id DESC-->
+
     <insert id="save">
+        <!--        INSERT INTO members-->
+        <!--        (name, login_id, login_pw)-->
+        <!--        VALUES( #{name},#{loginId},#{loginPw})-->
+
         INSERT INTO carts
-        SET member_id = #{memberId}
-        ,     item_id =  #{itemId}
+        SET member_id = #{memberId},
+        item_id = #{itemId}
     </insert>
+
     <select id="findAllWithItemByMemberId">
-        SELECT c.id, i.name, i.price, i.img_path, i.discount_per
+        SELECT c.id, i.name,i.price, i.discount_per, i.img_path
         FROM carts c
-        JOIN items i
-        ON i.id = c.item_id
-        WHERE c.member_id = #{memberId}
+        JOIN items i ON
+        i.id = c.item_id
+        WHERE
+        c.member_id = #{memberId};
     </select>
-    <delete id="removeByMemberIdAndItemId">
+
+    <select id="findById">
+        SELECT id, member_id, item_id
+        FROM carts
+        WHERE member_id= #{memberId}
+    </select>
+
+    <delete id="deleteByCartIdAndMemberId">
         DELETE FROM carts
-        WHERE member_id = #{memberId}
-        , AND item_id = #{itemId}
+        WHERE id = #{cartId}
+        AND member_id = #{memberId}
     </delete>
 </mapper>

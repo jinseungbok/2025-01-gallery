@@ -1,11 +1,20 @@
 package kr.co.wikibook.gallery.cart.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.bind.annotation.BindParam;
 
 @Getter
 @Setter
 public class CartDeleteReq {
-    private int itemId;
-    private int memberId;
+    //    @JsonIgnore
+    private Integer cartId;
+    private Integer memberId;
+
+    public CartDeleteReq(@BindParam("cart_id") int cartId) {
+        this.cartId = cartId;
+    }
 }

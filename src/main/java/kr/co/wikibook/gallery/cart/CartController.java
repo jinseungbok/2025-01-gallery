@@ -37,11 +37,13 @@ public class CartController {
     }
 
     @DeleteMapping
-    public ResponseEntity<?> delete(HttpServletRequest httpReq, @ModelAttribute CartDeleteReq req) {
-        int logginedMemberId = (int) HttpUtils.getSessionValue(httpReq, AccountConstants.MEMBER_ID_NAME);
-        req.setMemberId(logginedMemberId);
+    // RequestParam은 객체 못가져옴
+    public  ResponseEntity<?> delete(HttpServletRequest httpReq, @ModelAttribute CartDeleteReq req) {
+        int memberId = (int)HttpUtils.getSessionValue(httpReq, AccountConstants.MEMBER_ID_NAME);
+        req.setMemberId(memberId);
+//        CartDeleteReq data = new CartDeleteReq(memberId, req.getItemId() );
         int result = cartService.remove(req);
-        return ResponseEntity.ok(result);
+        return  ResponseEntity.ok(result);
     }
 }
 /*
