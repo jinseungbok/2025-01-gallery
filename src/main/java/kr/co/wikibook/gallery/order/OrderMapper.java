@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 @Mapper
-public interface orderMapper {
+public interface OrderMapper {
     int save(OrderPostDto dto);
-
+    List<OrderGetRes> findAllByMemberIdOrderByIdDesc(int memberId);
 }

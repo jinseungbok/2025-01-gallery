@@ -1,7 +1,9 @@
 package kr.co.wikibook.gallery.item.model;
 
 import lombok.Getter;
+import lombok.ToString;
 
+@ToString
 @Getter
 public class itemGetRes {
     private int id;

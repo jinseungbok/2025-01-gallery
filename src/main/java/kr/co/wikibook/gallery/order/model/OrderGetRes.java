@@ -1,11 +1,13 @@
 package kr.co.wikibook.gallery.order.model;
 
+import lombok.Getter;
+
+@Getter
 public class OrderGetRes {
-    private int orderId;
-    private int memberId;
-    private int name;
-    private int address;
-    private int payment;
-    private int cardNumber;
-    private int amount;
+    private int id;
+    private String name;
+    private String payment;
+    private String address;
+    private long amount;
+    private String created;
 }
