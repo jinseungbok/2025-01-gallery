@@ -71,6 +71,7 @@ public class OrderService {
     public OrderDetailGetRes detail(OrderDetailGetReq req) {
         OrderDetailGetRes result = orderMapper.findByOrderIdAndMemberId(req);
         List<OrderDetailDto> items = orderItemMapper.findAllByOrderId(req.getOrderId());
+        result.setItems(items);
         log.info("result={}", result);
         return result;
     }
